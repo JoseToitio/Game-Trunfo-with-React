@@ -17,6 +17,7 @@ class Form extends React.Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     const inputTrunfo = (
       <input
         type="checkbox"

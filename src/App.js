@@ -24,6 +24,7 @@ class App extends React.Component {
     this.savedCard = this.savedCard.bind(this);
     this.clearCard = this.clearCard.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
   }
 
   onInputChange({ target }) {
@@ -113,6 +114,13 @@ class App extends React.Component {
     return false;
   }
 
+  deleteCard(name) {
+    const { savedCards } = this.state;
+    this.setState(() => ({
+      savedCards: savedCards.filter((card) => card.cardName !== name),
+    }), this.checkTrunfo);
+  }
+
   render() {
     const {
       cardName,
@@ -126,47 +134,59 @@ class App extends React.Component {
       hasTrunfo,
       savedCards,
     } = this.state;
+    const { deleteCard } = this;
     return (
       <div>
         <h1>Tryunfo</h1>
-        <Form
-          hasTrunfo={ hasTrunfo }
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          onInputChange={ this.onInputChange }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          isSaveButtonDisabled={ this.isSaveButtonDisabled() }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-        <Card
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-        />
+        <div className="container-form">
+          <Form
+            hasTrunfo={ hasTrunfo }
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            onInputChange={ this.onInputChange }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            isSaveButtonDisabled={ this.isSaveButtonDisabled() }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
         <hr />
         <div className="container-cards">
           {savedCards.map((card, index) => (
-            <Card
-              key={ index }
-              cardName={ card.cardName }
-              cardDescription={ card.cardDescription }
-              cardAttr1={ card.cardAttr1 }
-              cardAttr2={ card.cardAttr2 }
-              cardAttr3={ card.cardAttr3 }
-              cardImage={ card.cardImage }
-              cardRare={ card.cardRare }
-              cardTrunfo={ card.cardTrunfo }
-            />
+            <div className="card-div" key={ index }>
+              <Card
+                key={ index }
+                cardName={ card.cardName }
+                cardDescription={ card.cardDescription }
+                cardAttr1={ card.cardAttr1 }
+                cardAttr2={ card.cardAttr2 }
+                cardAttr3={ card.cardAttr3 }
+                cardImage={ card.cardImage }
+                cardRare={ card.cardRare }
+                cardTrunfo={ card.cardTrunfo }
+              />
+              <button
+                type="button"
+                onClick={ () => deleteCard(card.cardName) }
+                data-testid="delete-button"
+              >
+                Excluir
+              </button>
+            </div>
           ))}
         </div>
       </div>
