@@ -165,6 +165,7 @@ class App extends React.Component {
           />
         </div>
         <hr />
+        <hr />
         <div className="container-cards">
           {savedCards.map((card, index) => (
             <div className="card-div" key={ index }>
