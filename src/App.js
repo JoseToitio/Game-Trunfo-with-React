@@ -25,6 +25,7 @@ class App extends React.Component {
     this.clearCard = this.clearCard.bind(this);
     this.checkTrunfo = this.checkTrunfo.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+    this.filterCards = this.filterCards.bind(this);
   }
 
   onInputChange({ target }) {
@@ -164,6 +165,7 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
+        <hr />
         <hr />
         <div className="container-cards">
           {savedCards.map((card, index) => (
